@@ -26,13 +26,25 @@ namespace treehause
              }
 
 
+             fileName = Path.Combine(directory.FullName, "topTen.json");
+             SerializePlayersToFile(topTenPlayers, fileName);
+
 
 
         }
 
         public static void SerializePlayersToFile(List<Player> players, string fileName)
         {
+            
+            var serializer = new JsonSerializer();
+            using (var writer = new StreamWriter(fileName))
+            using (var jsonWriter = new JsonTextWriter(writer))
+            {
+                serializer.Serialize(jsonWriter, players);
 
+            }
+
+           
         }
 
         public static string ReadFile(string fileName)
